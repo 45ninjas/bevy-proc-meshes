@@ -14,23 +14,19 @@ fn setup(
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
-    let mesh = create_plane(5.0, 40);
+    let mesh = create_plane(10.0, 256);
 
     // let texture_handle = asset_server.load("textures/512-uv-grid.png");
     // Spawn a mesh.
     commands
         .spawn_bundle(PbrBundle {
             mesh: meshes.add(mesh),
-            material: materials.add(StandardMaterial {
-                base_color_texture: asset_server.load("textures/vintage-tile/albedo.png").into(),
-                metallic_roughness_texture: asset_server.load("textures/vintage-tile/roughness.png").into(),
-                normal_map: asset_server.load("textures/vintage-tile/normal-ogl.png").into(),
-                occlusion_texture: asset_server.load("textures/vintage-tile/ao.png").into(),
+            material: materials.add(
                 ..Default::default()
             }),
             ..Default::default()
-        });
-        // .insert(Wireframe);
+        })
+        .insert(Wireframe);
 }
 
 fn create_plane(size: f32, segments: u32) -> Mesh {

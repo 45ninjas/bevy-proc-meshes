@@ -4,6 +4,7 @@ use crate::utils::flycam;
 mod height_map;
 mod utils;
 
+use bevy::render::camera::PerspectiveProjection;
 use dotenv::dotenv;
 
 use bevy::wgpu::{WgpuFeature, WgpuFeatures, WgpuOptions};
@@ -64,6 +65,11 @@ fn setup_scene(mut commands: Commands, asset_server: Res<AssetServer>) {
     // Spawn the camera.
     commands
         .spawn_bundle(PerspectiveCameraBundle {
+            perspective_projection: PerspectiveProjection {
+                near: 0.02,
+                far: 1000.0,
+                ..Default::default()
+            },
             ..Default::default()
         })
         .insert(flycam::FlyCam {
